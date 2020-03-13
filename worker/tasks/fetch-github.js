@@ -23,7 +23,25 @@ const fetchGithub = async () => {
   }
 
   console.log('got all', allJobs.length, 'jobs');
-  const success = await setAsync('github', JSON.stringify(allJobs));
+
+  const jrJobs = allJobs.filter(job => {
+    const jobTitle = job.title.toLowerCase();
+    if (
+      jobTitle.includes('senior') ||
+      jobTitle.includes('lead') ||
+      jobTitle.includes('manager') ||
+      jobTitle.includes('architect') ||
+      jobTitle.includes('sr.') ||
+      jobTitle.includes('sr ')
+    ) {
+      return false;
+    }
+
+    return true;
+  });
+
+  console.log('filtered jobs:', jrJobs.length);
+  const success = await setAsync('github', JSON.stringify(jrJobs));
 
   console.log(success);
 };
