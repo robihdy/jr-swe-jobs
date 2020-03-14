@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Jobs from './components/Jobs';
 
 import './App.css';
+
+const JOBS_API_URL = 'http://localhost:5000/jobs';
 
 const mockJobs = [
   { title: 'SWE1', company: 'Facebook' },
@@ -10,10 +12,22 @@ const mockJobs = [
   { title: 'SWE4', company: 'Google' }
 ];
 
+const fetchJobs = async () => {
+  const res = await fetch(JOBS_API_URL);
+  const jobs = res.json();
+  console.log(jobs);
+};
+
 function App() {
+  const [jobList, updateJobs] = useState([]);
+
+  useEffect(() => {
+    fetchJobs();
+  }, []);
+
   return (
     <div className="App">
-      <Jobs jobs={mockJobs} />
+      <Jobs jobs={jobList} />
     </div>
   );
 }
