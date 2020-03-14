@@ -10,6 +10,7 @@ const port = 5000;
 
 app.get('/jobs', async (req, res) => {
   const jobs = await getAsync('github');
+  res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
   res.send(jobs);
 });
 
