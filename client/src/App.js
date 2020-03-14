@@ -7,7 +7,7 @@ import './App.css';
 const { Content } = Layout;
 const { Title } = Typography;
 
-const JOBS_API_URL = 'http://localhost:5000/jobs';
+const JOBS_API_URL = '/api/jobs';
 
 const mockJobs = [
   { title: 'SWE1', company: 'Facebook' },

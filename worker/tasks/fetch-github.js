@@ -1,10 +1,15 @@
 const fetch = require('node-fetch');
 const redis = require('redis');
 const { promisify } = require('util');
+const keys = require('../keys');
 
-const client = redis.createClient();
-// const getAsync = promisify(client.get).bind(client);
-const setAsync = promisify(client.set).bind(client);
+const redisClient = redis.createClient({
+  host: keys.redisHost,
+  port: keys.redisPort,
+  retry_strategy: () => 1000
+});
+
+const setAsync = promisify(redisClient.set).bind(redisClient);
 
 const baseURL = 'https://jobs.github.com/positions.json';
 
