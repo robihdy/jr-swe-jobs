@@ -9,13 +9,6 @@ const { Title } = Typography;
 
 const JOBS_API_URL = '/api/jobs';
 
-const mockJobs = [
-  { title: 'SWE1', company: 'Facebook' },
-  { title: 'SWE2', company: 'Amazon' },
-  { title: 'SWE3', company: 'Netflix' },
-  { title: 'SWE4', company: 'Google' }
-];
-
 const fetchJobs = async updateJobs => {
   const res = await fetch(JOBS_API_URL);
   const jobs = await res.json();
