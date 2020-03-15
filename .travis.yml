@@ -20,3 +20,16 @@ after_success:
   - docker push robihdy/jr-swe-api
   - docker push robihdy/jr-swe-worker
   - docker push robihdy/jr-swe-nginx
+
+deploy:
+  provider: elasticbeanstalk
+  region: us-east-2
+  app: jr-swe
+  env: JrSwe-env
+  bucket-name: elasticbeanstalk-us-east-2-353969886337
+  bucket-path: jr-swe
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: $AWS_SECRET_KEY
