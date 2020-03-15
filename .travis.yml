@@ -1,0 +1,22 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t robihdy/client-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run robihdy/client-test npm run test -- --watchAll=false
+
+after_success:
+  - docker build -t robihdy/jr-swe-client ./client
+  - docker build -t robihdy/jr-swe-api ./api
+  - docker build -t robihdy/jr-swe-worker ./worker
+  - docker build -t robihdy/jr-swe-nginx ./nginx
+
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+  - docker push robihdy/jr-swe-client
+  - docker push robihdy/jr-swe-api
+  - docker push robihdy/jr-swe-worker
+  - docker push robihdy/jr-swe-nginx
